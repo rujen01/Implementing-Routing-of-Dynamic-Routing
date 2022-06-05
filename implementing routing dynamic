@@ -1,0 +1,73 @@
+a. RIP(Routing Information Protocal)
+RIP configuration on Router RA:
+RA>enable
+RA#config terminal
+RA(config)#router RIP
+RA(config-router)#version 2
+RA(config-terminal)#network 192.168.1.0
+RA(config-terminal)#network 10.10.1.0
+RA(config-terminal)#no auto-summary
+RA(config-terminal)#end
+Ra#write
+RIP configuration on Router RB:
+RB>enable
+RB#config terminal
+RB(config)#router RIP
+RB(config-router)#version 2
+RB(config-terminal)#network 192.168.2.0
+RB(config-terminal)#network 10.10.1.0
+RB(config-terminal)#network 10.10.2.0
+RB(config-terminal)#no auto-summary
+RB(config-terminal)#end
+RB#write
+RIP configuration on Router RC:
+RC>enable
+RC#config terminal
+RC(config)#router RIP
+RC(config-router)#version 2
+RC(config-terminal)#network 192.168.3.0
+RC(config-terminal)#network 10.10.2.0
+RC(config-terminal)#no auto-summary
+RC(config-terminal)#end
+RC#write
+
+
+b. OSPF(Open Shortest Path First):
+
+	Few terminology:
+	1) Loopback address
+	   -logical address which never goes down
+	2) Routerid
+	3) Area
+	4) Wildcard Mask
+
+
+RA#configure terminal
+RA(config)#router OSPF 1
+RA(config-router)#router-id 1.1.1.1
+RA(config-router)#network 192.168.1.0 0.0.0.255 area 0
+RA(config-router)#network 10.10.1.0 0.0.0.255 area 0
+RA(config-router)#network 10.10.3.0 0.0.0.255 area 0
+RA(config-router)#network 1.1.1.1 0.0.0.0 area 0
+RA(config-router)#end
+RA#write
+
+RB#configure terminal
+RB(config)#router OSPF 1
+RB(config-router)#router-id 2.2.2.2
+RB(config-router)#network 192.168.2.0 0.0.0.255 area 0
+RB(config-router)#network 10.10.1.0 0.0.0.255 area 0
+RB(config-router)#network 10.10.2.0 0.0.0.255 area 0
+RB(config-router)#network 2.2.2.2 0.0.0.0 area 0
+RB(config-router)#end
+RB#write
+
+RC#configure terminal
+RC(config)#router OSPF 1
+RC(config-router)#router-id 3.3.3.3
+RC(config-router)#network 192.168.3.0 0.0.0.255 area 0
+RC(config-router)#network 10.10.2.0 0.0.0.255 area 0
+RC(config-router)#network 10.10.3.0 0.0.0.255 area 0
+RC(config-router)#network 3.3.3.3 0.0.0.0 area 0
+RC(config-router)#end
+RC#write
